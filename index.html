@@ -16,11 +16,50 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             padding: 40px 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Fondo animado con partículas */
+        .animated-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0) 70%);
+            border-radius: 50%;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(1);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100px) scale(0);
+                opacity: 0;
+            }
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
         .header {
@@ -313,6 +352,9 @@
     </style>
 </head>
 <body>
+    <!-- Fondo animado con partículas -->
+    <div class="animated-background" id="animatedBg"></div>
+
     <div class="container">
         <div class="header">
             <h1>💕 Aniversario</h1>
@@ -732,5 +774,43 @@
             <p style="margin-top: 15px; font-size: 0.95em; opacity: 0.8;">Desde Marzo 2024 hasta Mayo 2026</p>
         </div>
     </div>
+
+    <script>
+        // Crear partículas animadas en el fondo
+        function createParticles() {
+            const bg = document.getElementById('animatedBg');
+            const particleCount = 50; // Número de partículas
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+
+                // Tamaño aleatorio (2-15px)
+                const size = Math.random() * 13 + 2;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+
+                // Posición horizontal aleatoria
+                particle.style.left = Math.random() * 100 + '%';
+
+                // Duración de la animación aleatoria (5-15 segundos)
+                const duration = Math.random() * 10 + 5;
+                particle.style.animationDuration = duration + 's';
+
+                // Retraso aleatorio de inicio
+                const delay = Math.random() * 5;
+                particle.style.animationDelay = delay + 's';
+
+                // Desplazamiento horizontal aleatorio
+                const offsetX = (Math.random() - 0.5) * 200;
+                particle.style.setProperty('--offsetX', offsetX + 'px');
+
+                bg.appendChild(particle);
+            }
+        }
+
+        // Inicializar partículas cuando carga la página
+        window.addEventListener('load', createParticles);
+    </script>
 </body>
 </html>
