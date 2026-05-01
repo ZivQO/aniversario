@@ -323,7 +323,7 @@
             .photo-card {
                 flex-direction: column !important;
                 margin-bottom: 60px;
-                 position: relative;
+               
             }
 
             .photo-card:nth-child(odd) {
@@ -334,11 +334,13 @@
                 width: 100%;
                  padding-left: 60px; 
             }
+.timeline-dot {
+    display: none; /* 👈 oculta los puntos */
+}
 
-            .timeline-dot {
-                left: 30px;
-                top: 15px;
-            }
+.timeline::before {
+    display: none; /* 👈 opcional: oculta la línea también */
+}
 
             .header h1 {
                 font-size: 2.2em;
